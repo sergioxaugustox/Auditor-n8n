@@ -1,0 +1,377 @@
+{
+  "name": "Clasificador de leads dentales",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1f2f3a4e-e7c1-4293-a390-b9bee7f499ea",
+      "name": "Webhook",
+      "webhookId": "ccec5ade-5bff-4583-93c2-6b3c6e6a68b1"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Eres un clasificador de leads para una clínica dental en México. Recibes el mensaje inicial de un paciente potencial y lo clasificas para priorizar la respuesta del equipo comercial.\n\nResponde ÚNICAMENTE con un objeto JSON válido. Sin markdown, sin ```json, sin texto antes o después. Solo el objeto.\n\nEstructura exacta:\n{\"urgencia\":\"alta|media|baja\",\"tipo\":\"dolor|urgencia_dental|estetico|ortodoncia|limpieza|consulta_precio|otro\",\"listo_para_agendar\":true|false,\"resumen\":\"máximo 12 palabras\",\"requiere_humano\":true|false}\n\nCriterios de urgencia:\n- alta: dolor agudo, sangrado, golpe, hinchazón, algo roto, o palabras como \"urgente/ya/hoy\".\n- media: molestia leve, duda concreta sobre un tratamiento, pide precio de algo específico.\n- baja: pregunta general, curiosidad, sin señal de intención ni molestia.\n\nReglas:\n- listo_para_agendar es true solo si el paciente pide cita, horario, o dice que quiere ir.\n- requiere_humano es true si hay dolor alto, emergencia, o el caso es ambiguo y necesita criterio clínico.\n- Si el mensaje está vacío, es incomprensible o no tiene relación con odontología, devuelve urgencia \"baja\", tipo \"otro\", resumen \"mensaje no clasificable\", requiere_humano true.\n- No inventes datos que el paciente no dio. El resumen describe solo lo que el mensaje dice."
+            },
+            {
+              "content": "= {{ $json.body.mensaje }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "fe555ca0-e713-4f75-a8c2-c77b2629cd1e",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Qal4qIIqobApVVHM",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst raw = $input.first().json.output[0].content[0].text;\nconst datos = JSON.parse(raw);\nreturn [{ json: datos }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "6d9f6272-7702-43db-a0b6-4bd96aaf1897",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "feddf47d-3945-4190-95af-606085092a60",
+                    "leftValue": "={{ $json.requiere_humano }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "be17da29-914c-4fb9-86fc-2825f2f00907",
+                    "leftValue": "={{ $json.requiere_humano }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "false",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        976,
+        0
+      ],
+      "id": "00f11a8c-656e-47f7-b5f3-dbcd4a9eed73",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "8554907050",
+        "text": "=🚨 LEAD URGENTE\nresumen:{{ $('Code in JavaScript').item.json.resumen }}\nUrgencia: {{ $('Code in JavaScript').item.json.urgencia }}\nTipo: {{ $('Code in JavaScript').item.json.tipo }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1184,
+        -96
+      ],
+      "id": "73a5c952-a591-4228-8411-ccb782d15a8f",
+      "name": "Send a text message",
+      "webhookId": "9fa61bec-f718-422a-b001-94eb83c4437f",
+      "credentials": {
+        "telegramApi": {
+          "id": "U94yjyHkOL5o3mif",
+          "name": "Telegram MRTooth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1j-fxnVSnp9GwAMD5WEaUdxBRbyXnZU61e-A4Ln2_EHw",
+          "mode": "list",
+          "cachedResultName": "Hoja de Leads clinica dental",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1j-fxnVSnp9GwAMD5WEaUdxBRbyXnZU61e-A4Ln2_EHw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1j-fxnVSnp9GwAMD5WEaUdxBRbyXnZU61e-A4Ln2_EHw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ $('Webhook').item.json.body.nombre }}",
+            "telefono": "={{ $('Webhook').item.json.body.telefono }}",
+            "mensaje": "={{ $('Webhook').item.json.body.mensaje }}",
+            "urgencia": "={{ $json.urgencia }}",
+            "tipo": "={{ $json.tipo }}",
+            "requiere_humano": "={{ $json.requiere_humano }}",
+            "fecha": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensaje",
+              "displayName": "mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "urgencia",
+              "displayName": "urgencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "requiere_humano",
+              "displayName": "requiere_humano",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        768,
+        0
+      ],
+      "id": "23a0f26d-5706-4faa-9b1e-d1c76e747f03",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mta7QFoZGKGwcvas",
+          "name": "Google Sheets - projectobetastation666"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "8554907050",
+        "text": "=Hola {{ $('Webhook').item.json.body.nombre }}, gracias por tu mensaje. Un asesor te contactará pronto para ayudarte con: {{ $('Code in JavaScript').item.json.resumen }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1136,
+        96
+      ],
+      "id": "2bdf7225-782e-4b3e-a159-42f953b28ddf",
+      "name": "Send a text message1",
+      "webhookId": "86a70dd9-b65d-4244-b970-c44bcd2420c4",
+      "credentials": {
+        "telegramApi": {
+          "id": "U94yjyHkOL5o3mif",
+          "name": "Telegram MRTooth"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "038a4413-d3c3-495d-9ebf-ab717aadf9cc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "78265b5de595daebbf4af27d69fb44ad7fa478bd93fcd16f69f30293ffb01a63"
+  },
+  "nodeGroups": [],
+  "id": "5Ulekz4h7ctMCjkB",
+  "tags": []
+}

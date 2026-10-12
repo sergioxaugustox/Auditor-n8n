@@ -1,0 +1,189 @@
+{
+  "name": "verdant_carga_vectorstore",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d2dc1981-c29b-464c-b2d6-383124f983a1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        496,
+        192
+      ],
+      "id": "98df890d-d971-4ee4-b402-11d30fefe6bf",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "q1gyHHWja1zF1Az4",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3e222663-b635-47ed-91ac-640f18727959",
+              "name": "texto",
+              "value": "# Verdant — Información Corporativa  Verdant es una empresa de comercio sustentable fundada en 2019 por María Elena Rosales y Carlos Mendoza en la ciudad de Barcelona, España. Nuestra misión es democratizar el acceso a productos ecológicos, orgánicos y sustentables para hogares y empresas, promoviendo un estilo de vida responsable con el medio ambiente.  La empresa nació de la necesidad de crear un puente entre productores locales comprometidos con prácticas sustentables y consumidores conscientes que buscan alternativas más saludables y respetuosas con el planeta. Desde nuestros inicios, hemos mantenido un crecimiento sostenido del 35% anual, consolidándonos como líderes en el sector de comercio ecológico en la región mediterránea.  ---  # Verdant — Visión Y Valores  Nuestra visión es convertirnos en la plataforma de referencia para el consumo responsable en Europa, facilitando la transición hacia un modelo económico circular. Trabajamos bajo los principios de transparencia, calidad, innovación sustentable y compromiso social.  Los valores que nos definen incluyen la responsabilidad ambiental, donde cada decisión empresarial considera su impacto ecológico; la equidad social, garantizando condiciones laborales justas en toda nuestra cadena de suministro; la calidad premium, ofreciendo productos que superan los estándares convencionales; y la innovación constante, buscando siempre mejores soluciones para nuestros clientes y el planeta.  ---  # Verdant — Estructura Organizacional  Verdant cuenta con un equipo de 127 colaboradores distribuidos en diferentes departamentos. El área comercial, liderada por Ana Gutiérrez, gestiona las relaciones con más de 350 proveedores certificados. El departamento de logística, bajo la dirección de Roberto Silva, opera desde nuestro centro de distribución de 8,500 metros cuadrados en Sabadell, equipado con sistemas de refrigeración solar y clasificación automatizada.  Nuestro equipo de tecnología, dirigido por la CTO Laura Martínez, desarrolla y mantiene nuestra plataforma de e-commerce, que procesa más de 15,000 pedidos mensuales. El área de sostenibilidad, coordinada por el Dr. Alejandro Vega, supervisa la certificación de productos y el programa de compensación de carbono.  ---  # Verdant — Productos Y Servicios  Nuestro catálogo incluye más de 2,800 productos organizados en ocho categorías principales. La sección de alimentación orgánica representa el 45% de nuestras ventas, ofreciendo frutas, verduras, granos, lácteos alternativos, carnes de pastoreo y productos gourmet artesanales, todos certificados por organismos reconocidos como CCPAE y Demeter.  Los productos de cuidado personal y cosmética natural constituyen el 20% del negocio, incluyendo marcas como Weleda, Dr. Hauschka y nuestras líneas propias desarrolladas con ingredientes mediterráneos. La categoría de hogar sustentable, que representa el 18% de las ventas, incluye productos de limpieza biodegradables, textiles orgánicos, muebles de madera certificada FSC y sistemas de ahorro energético.  Los productos para bebés y niños, representando el 12% del volumen, incluyen pañales biodegradables, juguetes de madera, ropa orgánica y alimentos infantiles sin aditivos. Las categorías especializadas como suplementos naturales, productos para mascotas ecológicas, artículos de jardín sustentable y tecnología verde completan nuestro portafolio.  ---  # Verdant — Programas De Sostenibilidad  El programa \"Verdant Circular\" es nuestra iniciativa insignia para la economía circular. Los clientes pueden devolver envases reutilizables a cambio de descuentos, hemos eliminado el 95% del plástico de un solo uso de nuestros empaques, y colaboramos con 23 empresas de reciclaje especializadas para gestionar residuos de manera responsable.  Nuestro programa de compensación de carbono \"Huella Verde\" calcula automáticamente las emisiones de cada pedido y las compensa mediante proyectos de reforestación en la Península Ibérica. Hasta la fecha, hemos plantado más de 47,000 árboles en colaboración con organizaciones como Fundación Más Árboles y la Associació Reforesta.  La iniciativa \"Productores Locales Verdant\" apoya a más de 180 pequeños productores en un radio de 300 kilómetros, garantizándoles precios justos y asistencia técnica para obtener certificaciones orgánicas. Este programa ha permitido que 34 granjas familiares completen su transición a la agricultura ecológica.  ---  # Verdant — Operaciones Y Logística  Nuestro centro de distribución principal en Sabadell opera con energía 100% renovable, incorporando paneles solares de 850 kW, sistemas de gestión inteligente y vehículos de reparto eléctricos para entregas urbanas. La flota incluye 12 furgonetas eléctricas para Barcelona y área metropolitana, y utilizamos servicios de mensajería con certificación de carbono neutro para envíos nacionales e internacionales.  El sistema de gestión de inventarios utiliza inteligencia artificial para predecir demanda y minimizar desperdicio, especialmente crítico para productos perecederos. Mantenemos un índice de frescura del 97.3% en productos refrigerados y hemos reducido las mermas a menos del 2.1%, muy por debajo del promedio del sector que oscila entre 8-12%.  Los tiempos de entrega estándar son de 24-48 horas para el área metropolitana de Barcelona, 48-72 horas para el resto de España, y 5-7 días laborables para envíos internacionales a Francia, Portugal e Italia. Ofrecemos franjas horarias específicas y la opción de entrega en puntos de recogida colaborativos.  ---  # Verdant — Tecnología E Innovación  La plataforma digital de Verdant, desarrollada internamente, integra funcionalidades avanzadas como recomendaciones personalizadas basadas en historial de compra y  preferencias dietéticas, calculadora de impacto ambiental en tiempo real, y sistema de trazabilidad que permite seguir cada producto desde el origen hasta la entrega.  Implementamos blockchain para la verificación de certificaciones orgánicas y comercio justo, garantizando transparencia total en la cadena de suministro. Los clientes pueden escanear códigos QR para acceder a información detallada sobre el productor, métodos de cultivo, fecha de cosecha y huella de carbono del transporte.  El programa de fidelización \"Verdant Community\" utiliza gamificación para incentivar compras sustentables, ofreciendo puntos por acciones como elegir productos locales, utilizar envases retornables, o referir nuevos clientes. Los puntos se pueden canjear por descuentos, productos gratuitos o donaciones a proyectos ambientales.  ---  # Verdant — Responsabilidad Social  El programa \"Alimentación Consciente\" colabora con 15 comedores escolares para introducir menús orgánicos, beneficiando a más de 3,200 estudiantes en la provincia de Barcelona. Proporcionamos formación gratuita sobre nutrición sustentable a padres y educadores, y donamos productos excedentes a bancos de alimentos locales.  La iniciativa \"Verdant Solidario\" destina el 2% de las ganancias anuales a proyectos de desarrollo rural sustentable en comunidades vulnerables. Actualmente apoyamos tres proyectos en Guatemala, Perú y Marruecos, enfocados en agricultura familiar ecológica y empoderamiento de mujeres rurales.  Colaboramos con universidades locales en programas de investigación sobre agricultura sustentable y economía circular. Hemos co-financiado 8 tesis doctorales y ofrecemos prácticas profesionales remuneradas a estudiantes de ingeniería ambiental, administración de empresas y tecnologías alimentarias.  ---  # Verdant — Certificaciones Y Reconocimientos  Verdant posee certificación B-Corp desde 2021, con una puntuación de 87.3 puntos que nos sitúa en el top 15% de empresas certificadas a nivel europeo. También contamos con certificación ISO 14001 para gestión ambiental, certificación EMAS (Eco-Management and Audit Scheme) y el sello de Empresa Saludable otorgado por la Generalitat de Catalunya.  En 2023 recibimos el Premio Nacional de Comercio Sustentable otorgado por el Ministerio de Transición Ecológica, y fuimos reconocidos como \"Mejor Empresa de E-commerce Ecológico\" en los premios eCommerce Awards España. María Elena Rosales fue incluida en la lista \"40 Under 40 Sustainability Leaders\" de la revista Forbes Europa.  ---  # Verdant — Métricas De Impacto  Desde nuestro lanzamiento, hemos facilitado la venta de más de 2.3 millones de productos orgánicos, evitando aproximadamente 340 toneladas de pesticidas y fertilizantes químicos en la agricultura. Nuestro programa de packaging sustentable ha eliminado el equivalente a 1.2 millones de bolsas plásticas del flujo de residuos.  La red de productores Verdant ha permitido que 67 granjas familiares incrementen sus ingresos en un promedio del 40% al acceder a mercados premium. Hemos contribuido a la preservación de 12 variedades autóctonas de frutas y verduras que estaban en riesgo de desaparición.  El impacto ambiental acumulado incluye la compensación de 890 toneladas de CO2, el ahorro de 2.1 millones de litros de agua a través de agricultura eficiente, y la protección de 450 hectáreas de suelo mediante prácticas de agricultura regenerativa.  ---  # Verdant — Expansión Y Planes Futuros  Para 2025 planeamos expandir operaciones a Portugal y sur de Francia, estableciendo centros de distribución regionales que nos permitan mantener nuestra promesa de entregas en 48 horas. La inversión estimada para esta expansión es de 3.2 millones de euros, co-financiada por el fondo de inversión de impacto Eco-Ventures Capital.  Estamos desarrollando una línea propia de productos de marca Verdant, comenzando con conservas artesanales, aceites prensados en frío y productos de panadería sin gluten. Esta línea representará aproximadamente el 25% del catálogo para 2026 y será producida exclusivamente por cooperativas de productores certificadas.  El proyecto \"Verdant Labs\" investigará nuevas tecnologías de packaging comestible y biodegradable, en colaboración con el Instituto de Ciencia y Tecnología de Alimentos de la Universidad Politécnica de Valencia. También exploraremos aplicaciones de agricultura vertical urbana para reducir distancias de transporte en productos de hoja verde.  ---  # Verdant — Datos Financieros  El ejercicio fiscal 2023 cerró con una facturación de 18.7 millones de euros, representando un crecimiento del 32% respecto al año anterior. El ticket medio de compra es de 67 euros, con una frecuencia de compra promedio de 2.3 pedidos mensuales por cliente activo.  La base de clientes activos alcanzó 34,000 usuarios registrados, con una tasa de retención anual del 78%. El margen bruto promedio es del 35%, reinvirtiendo el 8% de los ingresos en investigación, desarrollo y programas de sostenibilidad.  Los productos de mayor rotación incluyen frutas y verduras orgánicas locales (23% de ventas), productos de limpieza ecológicos (18%), cosméticos naturales (15%), y alimentos gourmet artesanales (12%). La estacionalidad muestra picos en primavera (marzo-mayo) y otoño (septiembre-noviembre), con incrementos del 25% respecto a los meses base.  ---  # Verdant — Alianzas Estratégicas  Mantenemos alianzas estratégicas con organizaciones clave del sector. Con Ecovalia, la asociación española de producción ecológica, colaboramos en programas de formación y certificación. Nuestra partnership con Slow Food Catalunya promueve la biodiversidad alimentaria y el consumo de productos de temporada.  La alianza con la cooperativa Som Energia nos permite ofrecer tarifas preferenciales de energía renovable a nuestros clientes. Trabajamos con Triodos Bank para facilitar  microcréditos a productores que desean certificarse como orgánicos, y colaboramos con la Fundación Ellen MacArthur en proyectos piloto de economía circular.  ---  # Verdant — Investigación Y Desarrollo  Nuestro departamento de I+D, con un presupuesto anual de 650,000 euros, se enfoca en tres áreas principales: desarrollo de nuevos materiales de packaging sustentable, optimización de cadenas de suministro de baja huella de carbono, y tecnologías de conservación natural que extiendan la vida útil de productos orgánicos.  Actualmente participamos en el proyecto europeo Horizon 2020 \"FoodE\" para el desarrollo de sistemas alimentarios urbanos circulares. También colaboramos con el IRTA (Instituto de Investigación y Tecnología Agroalimentarias) en estudios sobre el impacto nutricional de alimentos orgánicos versus convencionales.  ---  # Verdant — Atención Al Cliente Y Experiencia  Nuestro equipo de atención al cliente, compuesto por 8 especialistas en sostenibilidad, ofrece asesoramiento personalizado sobre productos ecológicos, dietas especiales y estilo de vida sustentable. El tiempo promedio de respuesta es de 2.3 horas, con un índice de satisfacción del 94.7%.  Implementamos un sistema de feedback continuo que permite a los clientes evaluar no solo los productos sino también el impacto ambiental de sus compras. Esta información alimenta nuestros algoritmos de recomendación y ayuda a mejorar continuamente la selección de productos.  El programa \"Verdant Embajadores\" cuenta con 450 clientes activos que comparten experiencias y recomendaciones a través de redes sociales y eventos presenciales, generando el 23% de las nuevas adquisiciones de clientes a través de marketing de recomendación.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        288,
+        192
+      ],
+      "id": "5c4ddcc6-b796-4f51-8961-0bbdd5212097",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        368
+      ],
+      "id": "c43b0d79-6863-4b9d-b4fc-8ce2045c5378",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "Qal4qIIqobApVVHM",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.texto }}",
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        400
+      ],
+      "id": "127fefdd-73e1-4555-87e4-2a19b61c40f3",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 400,
+        "chunkOverlap": 50,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        736,
+        608
+      ],
+      "id": "ce9071b4-0831-41bf-98b6-51e0bbd29db9",
+      "name": "Recursive Character Text Splitter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "292129d7-d955-488d-a3ce-20c19b0679ce",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "78265b5de595daebbf4af27d69fb44ad7fa478bd93fcd16f69f30293ffb01a63"
+  },
+  "nodeGroups": [],
+  "id": "WuS5TtKwbLNaR1pL",
+  "tags": []
+}
